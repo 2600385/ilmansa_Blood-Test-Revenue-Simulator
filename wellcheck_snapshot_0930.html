@@ -16,9 +16,12 @@ select{background:var(--card);color:var(--ink);border:1px solid var(--line);bord
 <div class="d">웰체크 일만사 현황 RAW(8/31, 9/30 기준) 업로드 파일 기준 · 사업자번호 매칭 · 활성처 = 파일의 '활성처(해당)' 공식 판정 · 환자수 = 웰체크 일만사 환자수(활성 환자 목표 지표) · 기존 현황판과 별개의 조회 화면</div>
 <div class="tabs"><button data-o="경인1" class="on">경인1</button><button data-o="경인2">경인2</button></div>
 <div class="kp" id="kp"></div>
-<h2>목표 대비 달성 <span style="float:right;font-size:13px;font-weight:400">등급: S 100%↑ · A 80%↑ · B 60%↑ · C 60%↓ (활성처 수 기준)</span></h2>
+<h2>9월 목표 대비 결과 <span style="float:right;font-size:13px;font-weight:400">등급: S 100%↑ · A 80%↑ · B 60%↑ · C 60%↓ (활성처 수 기준)</span></h2>
 <div class="c"><table id="gt"></table></div>
-<div class="d" style="margin-top:6px">9월 목표처수는 파일(MR현황 '목표') 값이 기본입니다. 소장님 지정 목표와 다르면 칸에서 직접 수정하세요. 목표등급은 파일에 없어 직접 선택하며, 이 브라우저에 저장됩니다.</div>
+<div class="d" style="margin-top:6px">경인1: 회사 공식 목표처수(합 87)와 소장님 지정처수(합 59)를 반영했습니다. 지정 등급 = 소장 지정처수 ÷ 회사 목표처수. 경인2는 파일 값(목표)만 표시합니다. 파란 칸은 수정 가능하며 이 브라우저에 저장됩니다.</div>
+<h2>10월 필요처수 <span style="float:right;font-size:13px;font-weight:400">10월 목표 = 구간 목표 파일(반올림)</span></h2>
+<div class="c"><table id="g10"></table></div>
+<div class="d" style="margin-top:6px">B등급 = 10월 목표처수의 60% 이상 활성처. '추가 필요'는 9월 30일 현황 대비 늘려야 할 처수입니다.</div>
 <h2>담당자별 현황</h2><div class="c"><table id="mg"></table></div>
 <h2>거래처별 증감 <span style="float:right;font-size:13px;font-weight:400">담당자 <select id="sm"></select> 보기 <select id="sf"><option value="">전체</option><option value="chg">변동 거래처만</option><option value="신규활성">신규활성</option><option value="활성이탈">활성이탈</option><option value="신규">신규등록</option></select></span></h2>
 <div class="c"><table id="cl"></table></div>
@@ -46,17 +49,24 @@ function render(){const R=rows();
  L.map(r=>`<tr><td>${r.nm}${tag(r.s)}</td><td class="l">${r.mg}</td><td>${f(r.a[1])}</td><td>${f(r.b[1])}</td><td class="${cc(r.d)}">${sg(r.d)}</td><td>${r.a[0]?'●':'○'} → ${r.b[0]?'●':'○'}</td></tr>`).join('')+'</tbody>';
 }
 
-const MR=[["경인1","강태경",12,9,15,11],["경인1","김태정",10,3,13,4],["경인1","정명성",9.3,2,13,7],["경인1","정영수",11.3,7,14,7],["경인1","조예린",16,11,18,12],["경인1","최주호",12,6,15,7],["경인2","김광희",7.7,4,11,8],["경인2","김선겸",9,4,12,7],["경인2","백재환",13,8,15,9],["경인2","심영보",13,9,15,11],["경인2","음두연",13,8,15,8],["경인2","이영주",15.7,15,17,15],["경인2","전태훈",13.7,9,15,10]],GR=[['S',1],['A',.8],['B',.6],['C',0]];
-const gr=p=>GR.find(g=>p>=g[1]-1e-9)[0];
-let ST={};try{ST=JSON.parse(localStorage.getItem('wsnap')||'{}')}catch(e){}
-const sv=()=>{try{localStorage.setItem('wsnap',JSON.stringify(ST))}catch(e){}};
-function renderGT(){const L=MR.filter(r=>r[0]===O);let st=0,sa=0;
- const rows=L.map(r=>{const k=r[0]+r[1],tg=ST[k+'t']!=null?+ST[k+'t']:Math.round(r[4]),tgt=ST[k+'g']||'',p9=r[5]/tg,p8=r[3]/r[2],g9=gr(p9),g8=gr(p8);st+=tg;sa+=r[5];
-  const th=tgt?GR.find(g=>g[0]===tgt)[1]:null,need=th==null||tgt==='C'?'':Math.max(0,Math.ceil(th*tg-1e-9)-r[5]);
-  const ok=th==null?'':p9>=th-1e-9?'<span class="up">달성</span>':'<span class="dn">미달</span>';
-  return`<tr><td>${r[1]}</td><td><input data-k="${k}t" type="number" min="1" value="${tg}" style="width:56px"></td><td>${r[5]}</td><td>${r[5]-r[3]>0?'<span class="up">+':'<span>'}${r[5]-r[3]}</span></td><td>${(p9*100).toFixed(0)}%</td><td><b>${g9}</b> <span class="d">(8월 ${g8})</span></td><td><select data-k="${k}g">${['','S','A','B'].map(x=>`<option ${x===tgt?'selected':''}>${x}</option>`).join('')}</select></td><td>${ok}</td><td>${need===''?'':need===0?'-':need+'처'}</td></tr>`}).join('');
- gt.innerHTML='<thead><tr><th>담당자</th><th>목표처수</th><th>9월 활성처</th><th>8월 대비</th><th>달성률</th><th>9월 등급</th><th>목표등급</th><th>판정</th><th>목표등급까지</th></tr></thead><tbody>'+rows+`</tbody><tfoot><tr><td>${O} 합계</td><td>${st}</td><td>${sa}</td><td></td><td>${(sa/st*100).toFixed(0)}%</td><td><b>${gr(sa/st)}</b></td><td></td><td></td><td></td></tr></tfoot>`;
- gt.querySelectorAll('[data-k]').forEach(e=>e.onchange=()=>{ST[e.dataset.k]=e.value;sv();renderGT()})}
+const MR=[["경인1","강태경",12,9,15,11,17,12],["경인1","김태정",10,3,13,4,16,8],["경인1","정명성",9,2,12,7,16,7],["경인1","정영수",11,7,14,7,17,10],["경인1","조예린",16,11,18,12,19,12],["경인1","최주호",12,6,15,7,17,10],["경인2","김광희",8,4,11,8,13,null],["경인2","김선겸",9,4,12,7,14,null],["경인2","백재환",13,8,15,9,16,null],["경인2","심영보",13,9,15,11,16,null],["경인2","음두연",13,8,15,8,16,null],["경인2","이영주",16,15,17,15,17,null],["경인2","전태훈",14,9,15,10,16,null]],GR=[['S',1],['A',.8],['B',.6],['C',0]];
+const gr=p=>GR.find(g=>p>=g[1]-1e-9)[0],th=g=>GR.find(x=>x[0]===g)[1];
+let ST={};try{ST=JSON.parse(localStorage.getItem('wsnap2')||'{}')}catch(e){}
+const sv=()=>{try{localStorage.setItem('wsnap2',JSON.stringify(ST))}catch(e){}};
+const gv=(k,d)=>ST[k]!=null&&ST[k]!==''?+ST[k]:d;
+const inp=(k,v)=>`<input data-k="${k}" type="number" min="0" value="${v??''}" style="width:54px;border:1px solid var(--acc);border-radius:6px;background:var(--card);color:var(--ink);padding:2px 4px;text-align:right">`;
+function renderGT(){const L=MR.filter(r=>r[0]===O);let T=[0,0,0,0,0];
+ const rows=L.map(r=>{const k=r[0]+r[1],t9=gv(k+'t9',r[4]),g9=r[7]==null?null:gv(k+'g9',r[7]),a9=r[5],p=a9/t9,G=gr(p),tg=g9==null?null:gr(g9/t9);
+  T[0]+=t9;T[1]+=g9||0;T[2]+=a9;T[3]+=r[3];
+  const ok=tg==null?'':G===tg||th(G)>th(tg)?'<span class="up">달성</span>':'<span class="dn">미달</span>',df=g9==null?'':a9-g9;
+  return`<tr><td>${r[1]}</td><td>${inp(k+'t9',t9)}</td><td>${g9==null?'-':inp(k+'g9',g9)}</td><td>${tg?`<b>${tg}</b> <span class="d">(${(g9/t9*100).toFixed(0)}%)</span>`:'-'}</td><td><b>${a9}</b> <span class="${cc(a9-r[3])}">(8월 ${r[3]}, ${sg(a9-r[3])})</span></td><td>${df===''?'-':`<span class="${cc(df)}">${sg(df)}</span>`}</td><td>${(p*100).toFixed(0)}%</td><td><b>${G}</b> <span class="d">(8월 ${gr(r[3]/r[2])})</span></td><td>${ok}</td></tr>`}).join('');
+ gt.innerHTML='<thead><tr><th>담당자</th><th>회사 목표처수</th><th>소장 지정처수</th><th>지정 등급</th><th>9월 실제 활성처</th><th>소장 지정 대비</th><th>달성률</th><th>9월 등급</th><th>판정</th></tr></thead><tbody>'+rows+`</tbody><tfoot><tr><td>${O}</td><td>${T[0]}</td><td>${T[1]||'-'}</td><td>${T[1]?`<b>${gr(T[1]/T[0])}</b> <span class="d">(${(T[1]/T[0]*100).toFixed(0)}%)</span>`:'-'}</td><td>${T[2]} <span class="d">(8월 ${T[3]})</span></td><td>${T[1]?sg(T[2]-T[1]):'-'}</td><td>${(T[2]/T[0]*100).toFixed(0)}%</td><td><b>${gr(T[2]/T[0])}</b></td><td></td></tr></tfoot>`;
+ let S=[0,0,0,0],NB=0;
+ g10.innerHTML='<thead><tr><th>담당자</th><th>9월 30일 현황</th><th>10월 목표처수</th><th>B 필요처수</th><th>추가 필요</th><th>A 필요처수</th><th>추가 필요</th></tr></thead><tbody>'+L.map(r=>{const k=r[0]+r[1],t=gv(k+'t10',r[6]),b=Math.ceil(t*.6-1e-9),a=Math.ceil(t*.8-1e-9),c=r[5];S[0]+=c;S[1]+=t;S[2]+=b;S[3]+=a;NB+=Math.max(0,b-c);
+  const ad=n=>n-c<=0?'<span class="up">충족</span>':'<b>+'+(n-c)+'처</b>';
+  return`<tr><td>${r[1]}</td><td>${c}</td><td>${inp(k+'t10',t)}</td><td>${b}</td><td>${ad(b)}</td><td class="d">${a}</td><td class="d">${ad(a)}</td></tr>`}).join('')+
+ `</tbody><tfoot><tr><td>${O}</td><td>${S[0]}</td><td>${S[1]}</td><td>${S[2]}</td><td><b>+${NB}처</b></td><td>${S[3]}</td><td></td></tr></tfoot>`;
+ document.querySelectorAll('[data-k]').forEach(e=>e.onchange=()=>{ST[e.dataset.k]=e.value;sv();renderGT()})}
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');O=b.dataset.o;sm.value='';render();renderGT()});
 sm.onchange=sf.onchange=render;render();renderGT();
 </script></body></html>
