@@ -19,10 +19,13 @@ ul{margin:0;padding-left:20px}li{margin:5px 0}
 @media print{body{padding:0}h2{break-after:avoid}}
 .sec{margin-top:44px;padding-top:20px;border-top:2px solid var(--ink);font-size:22px}
 @media print{.sec{break-before:page;border-top:0;margin-top:0}}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:18px 0 6px}.tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:10px 20px;font:700 16px inherit;color:var(--mute);cursor:pointer}.tabs button.on{color:var(--ink);border-color:var(--acc)}
+.pn{display:none}.pn.on{display:block}
+@media print{.tabs{display:none}.pn{display:block!important;break-before:page}.pn:first-of-type{break-before:auto}}
 </style></head><body><div class="w"><div class="k">10월 내근회의 · 9월 복기</div>
 <h1>경인1·경인2 사무소 9월 활성처 달성 결과</h1>
 <div class="d">기준: 웰체크 일만사 현황 9/30 마감(공식 활성처 판정) · 등급: S 100%↑ / A 80%↑ / B 60%↑ / C 60%↓ (회사 목표처수 대비)</div>
-<h2>사무소 비교</h2>
+<div class="tabs"><button>전체 비교</button><button>경인1</button><button>경인2</button></div><div class="pn"><h2>사무소 비교</h2>
 <div class="tw"><table>
 <thead><tr><th>사무소</th><th>회사 목표</th><th>9월 활성처<br>(8월→9월)</th><th>달성률</th><th>9월 등급</th><th>B등급 이상 인원</th><th>소장 지정</th><th>10월 B까지<br>추가 필요</th></tr></thead>
 <tbody>
@@ -37,7 +40,7 @@ ul{margin:0;padding-left:20px}li{margin:5px 0}
 <li>두 사무소 모두 <b>9월 이탈 0처</b>, 신규 활성 0처 정체 인원(정영수·음두연)이 등급 하락.</li>
 </ul>
 
-<h1 class="sec">경인1 사무소 9월 활성처 달성 결과</h1>
+</div><div class="pn"><h1>경인1 사무소 9월 활성처 달성 결과</h1>
 <div class="d">기준: 웰체크 일만사 현황 9/30 마감(공식 활성처 판정) · 등급: S 100%↑ / A 80%↑ / B 60%↑ / C 60%↓ (회사 목표처수 대비)</div>
 
 <h2>한눈에 보기</h2>
@@ -89,7 +92,7 @@ ul{margin:0;padding-left:20px}li{margin:5px 0}
 </table></div>
 <p class="d">10월 목표처수는 MR 구간 목표 파일 10월 값 반올림 기준. '유지'는 9월 활성처를 그대로 지킨다는 전제이므로 이탈 대비 1~2처 여유 확보 권장.</p>
 
-<h1 class="sec">경인2 사무소 9월 활성처 달성 결과</h1>
+</div><div class="pn"><h1>경인2 사무소 9월 활성처 달성 결과</h1>
 <div class="d">기준: 웰체크 일만사 현황 9/30 마감(공식 활성처 판정) · 목표처수: 파일 MR현황 9월 목표 · 등급: S 100%↑ / A 80%↑ / B 60%↑ / C 60%↓</div>
 
 <h2>한눈에 보기</h2>
@@ -141,4 +144,8 @@ ul{margin:0;padding-left:20px}li{margin:5px 0}
 <tfoot><tr><td class="n">경인2</td><td>68</td><td>108</td><td>68</td><td>+5처</td></tr></tfoot>
 </table></div>
 <p class="d">10월 목표처수는 MR 구간 목표 파일 10월 값 반올림 기준. '유지'는 9월 활성처를 그대로 지킨다는 전제(김광희·전태훈은 여유 0처)이므로 이탈 대비 1~2처 여유 확보 권장. 경인2 소장 지정처수는 미반영.</p>
-</div></body></html>
+</div></div><script>
+const bs=document.querySelectorAll('.tabs button'),ps=document.querySelectorAll('.pn');
+function go(i){bs.forEach((b,j)=>b.classList.toggle('on',i===j));ps.forEach((p,j)=>p.classList.toggle('on',i===j));try{localStorage.setItem('sepTab',i)}catch(e){}}
+bs.forEach((b,i)=>b.onclick=()=>go(i));let s=0;try{s=+localStorage.getItem('sepTab')||0}catch(e){}go(s);
+</script></body></html>
