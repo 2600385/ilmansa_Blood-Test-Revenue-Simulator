@@ -14,7 +14,7 @@ th,td{border:1px solid var(--line);padding:8px 10px;text-align:right;white-space
 th{background:var(--head);text-align:center}td.n{text-align:left;font-weight:700}td.c{text-align:center}
 .hl{background:var(--hl)}.up{color:var(--ok);font-weight:700}.mu{color:var(--mute)}
 tr.new td{background:var(--new)}tr.new td.hl{background:var(--hl)}
-.tag{font-size:11px;padding:1px 7px;border-radius:9px;border:1px solid var(--acc);color:var(--acc);margin-left:6px;font-weight:600}
+.tag.t2{color:var(--mute);border-color:var(--mute)}.tag{font-size:11px;padding:1px 7px;border-radius:9px;border:1px solid var(--acc);color:var(--acc);margin-left:6px;font-weight:600}
 tfoot td{background:var(--head);font-weight:700}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.two div{border:1px solid var(--line);border-radius:10px;padding:12px 14px}
 .two div>b{display:block;margin-bottom:6px}.two li{margin:3px 0}ul{margin:0;padding-left:18px}
@@ -34,7 +34,8 @@ tfoot td{background:var(--head);font-weight:700}
 <h2>월별 활성처</h2>
 <div class="two">
 <div><b>8월 마감 (2처)</b><ul><li>삼성장편한내과의원</li><li>상우내과의원(연구)</li></ul></div>
-<div><b>9월 마감 (7처)</b><ul><li>삼성장편한내과의원</li><li>상우내과의원(연구)</li><li><b>건강플러스내과의원</b> <span class="tag">신규</span></li><li><b>연세위편한내과</b> <span class="tag">신규</span></li><li><b>연세내과의원</b> <span class="tag">신규</span></li><li><b>인천평화의원</b> <span class="tag">신규</span></li><li><b>봉정민내과</b> <span class="tag">신규</span></li></ul></div>
+<div><b>9월 마감 (7처)</b><ul><li>삼성장편한내과의원</li><li>상우내과의원(연구)</li></ul>
+<p class="d" style="margin:10px 0 2px">신규 활성 5처</p><ul><li><b>건강플러스내과의원</b> <span class="tag">청구 발생</span></li><li><b>연세위편한내과</b> <span class="tag">청구 발생</span></li><li><b>연세내과의원</b> <span class="tag t2">청구 전환 예정</span></li><li><b>인천평화의원</b> <span class="tag t2">청구 전환 예정</span></li><li><b>봉정민내과</b> <span class="tag t2">청구 전환 예정</span></li></ul></div>
 </div>
 
 <h2>거래처별 환자수·청구금액</h2>
@@ -46,18 +47,29 @@ tfoot td{background:var(--head);font-weight:700}
 <tr><td class="n">상우내과의원(연구)</td><td>109</td><td>670,700</td><td>111</td><td class="hl">746,350</td><td class="up">+2</td><td class="up">+75,650</td></tr>
 <tr class="new"><td class="n">건강플러스내과의원<span class="tag">신규 활성</span></td><td class="mu">0</td><td class="mu">-</td><td>12</td><td class="hl">138,730</td><td class="up">+12</td><td class="up">+138,730</td></tr>
 <tr class="new"><td class="n">연세위편한내과<span class="tag">신규 활성</span></td><td class="mu">-</td><td class="mu">-</td><td>4</td><td class="hl">123,080</td><td class="up">+4</td><td class="up">+123,080</td></tr>
-<tr class="new"><td class="n">연세내과의원<span class="tag">신규 활성</span></td><td class="mu">1</td><td class="mu">-</td><td>4</td><td class="mu">0</td><td class="up">+3</td><td class="mu">-</td></tr>
-<tr class="new"><td class="n">인천평화의원<span class="tag">신규 활성</span></td><td class="mu">8</td><td class="mu">-</td><td>8</td><td class="mu">0</td><td class="mu">0</td><td class="mu">-</td></tr>
-<tr class="new"><td class="n">봉정민내과<span class="tag">신규 활성</span></td><td class="mu">9</td><td class="mu">-</td><td>9</td><td class="mu">0</td><td class="mu">0</td><td class="mu">-</td></tr>
+<tr class="new"><td class="n">연세내과의원<span class="tag t2">신규 활성</span></td><td class="mu">1</td><td class="mu">-</td><td>4</td><td class="mu">0</td><td class="up">+3</td><td class="mu">-</td></tr>
+<tr class="new"><td class="n">인천평화의원<span class="tag t2">신규 활성</span></td><td class="mu">8</td><td class="mu">-</td><td>8</td><td class="mu">0</td><td class="mu">0</td><td class="mu">-</td></tr>
+<tr class="new"><td class="n">봉정민내과<span class="tag t2">신규 활성</span></td><td class="mu">9</td><td class="mu">-</td><td>9</td><td class="mu">0</td><td class="mu">0</td><td class="mu">-</td></tr>
 </tbody>
 <tfoot><tr><td class="n">합계 (활성처 2→7)</td><td>255</td><td>1,693,000</td><td>289</td><td>2,415,080</td><td>+34</td><td>+722,080</td></tr></tfoot>
 </table></div>
 <div class="d" style="margin-top:8px">※ 환자수 = 웰체크 일만사 환자수(8월 마감 시점 값 포함). 연세위편한내과는 8월 목록에 없던 신규 등록 거래처입니다.<br>※ 연세내과·인천평화·봉정민은 9월 활성처로 인정되었으나 9월 청구는 아직 없습니다.</div>
 
-<h2>10월 포인트</h2>
+<h2>9월 성과 요약</h2>
 <ul>
-<li>활성처 <b>2처 → 7처</b>, 청구금액 <b>+72만 원</b> — 9월 한 달 만에 가장 크게 늘었습니다.</li>
-<li>신규 활성 5처 중 <b>청구가 생긴 곳은 2곳</b>(건강플러스·연세위편한). 나머지 3곳(연세내과·인천평화·봉정민)의 <b>첫 청구</b>가 10월 과제입니다.</li>
-<li>삼성장편한내과가 청구금액의 <b>58%</b>를 차지합니다. 신규처 청구가 커지면 의존도가 낮아집니다.</li>
+<li>활성처 <b>2처 → 7처 (+5처)</b>, 청구금액 <b>+722,080원 (+43%)</b>.</li>
+<li>신규 활성 5처 중 <b>2처(건강플러스·연세위편한)는 9월 청구 발생</b>(+261,810원). 기존 2처도 <b>+460,270원</b> 증가.</li>
+<li>나머지 3처(연세내과·인천평화·봉정민)는 환자 4~9명이 가입된 상태로 <b>청구 전환 단계</b>입니다.</li>
 </ul>
+
+<h2>10월 과제</h2>
+<ul>
+<li><b>청구 전환 3처</b>(연세내과·인천평화·봉정민): 첫 청구 발생까지 연결</li>
+<li><b>신규 2처</b>(건강플러스·연세위편한): 환자 확대 및 청구 안정화</li>
+<li>삼성장편한내과 의존도(청구금액의 58%) 완화</li>
+</ul>
+
+<h2>10월 추진 중</h2>
+<table><thead><tr><th>거래처</th><th>현재 상황</th><th>추진 내용</th></tr></thead>
+<tbody><tr><td class="n" style="text-align:left">박가정의학과의원</td><td class="c" style="text-align:left">반대 극복</td><td style="text-align:left">웰체크 제품설명회 추진 중</td></tr></tbody></table>
 </div></body></html>
